@@ -1,0 +1,31 @@
+#!/bin/bash
+
+set -e
+SELF_DIR="$(dirname "$0")"
+cd "$SELF_DIR"
+
+DICE_WORD_LIST='wordlists/eff_large_wordlist.txt'
+DICE_WORD_LIST_DICE_COUNT=$(cat "$DICE_WORD_LIST" | head -n 1 | cut -f1 | tr -d '\n' | wc -c)
+
+PASSPHRASE_WORD_COUNT=${1:-6}
+PASSPHRASE_WORD_SEPERATOR=${2:-' '}
+
+dice_roll() {
+  local roll_count=$1
+  echo $(LC_ALL=C tr -cd '1-6' < /dev/urandom | head -c ${roll_count})
+}
+
+generate_passphrase() {
+  local passphrase_word_count=${1:-6}
+  local passphrase_word_seperator=${2:-' '}
+  local passphrase_words=()
+  for word_id in $(dice_roll $(($passphrase_word_count * $DICE_WORD_LIST_DICE_COUNT)) | fold -w $DICE_WORD_LIST_DICE_COUNT); do
+      word=$(cat "$DICE_WORD_LIST" | grep "^$word_id\t" | cut -f2)
+      passphrase_words+=("$word")
+  done
+
+  # join passphrase words to actual passphrase
+  echo "$(IFS="$passphrase_word_seperator" ; echo "${passphrase_words[*]}")"
+}
+
+generate_passphrase $PASSPHRASE_WORD_COUNT $PASSPHRASE_WORD_SEPERATOR
