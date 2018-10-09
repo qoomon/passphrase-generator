@@ -1,8 +1,6 @@
 #!/bin/bash
 
 set -e
-SELF_DIR="$(dirname $(realpath $0))"
-cd "$SELF_DIR"
 
 DICE_WORD_LIST='11111	abacus
 11112	abdomen
