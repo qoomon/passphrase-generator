@@ -8,4 +8,4 @@ dice passphrase generator as described here https://www.eff.org/dice
 `pwgen [<word-count> [<word-seperator>]] `
 * defaults
   * `word-count` `6`
-  * `word-seperator` ` `
+  * `word-seperator` ` ' '`
