@@ -6,6 +6,6 @@ dice passphrase generator as described here https://www.eff.org/dice
 
 ## Usage
 `pwgen [<word-count> [<word-seperator>]] `
-* defaults
-  * `word-count` `6`
-  * `word-seperator` ` ' '`
+* Defaults
+  * `word-count` **6**
+  * `word-seperator` **' '**
